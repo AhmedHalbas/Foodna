@@ -1,0 +1,45 @@
+﻿@model RestaurantProject.Models.Buyer
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <h1>Details</h1>
+
+    <div>
+        <h4>Buyer</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Username)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Username)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd class="col-sm-10">
+                City : @Html.DisplayFor(model => model.Address.City) ,
+                Street:  @Html.DisplayFor(model => model.Address.Street) ,
+                Building Number: @Html.DisplayFor(model => model.Address.BuildingNom)
+
+
+
+            </dd>
+
+        </dl>
+    </div>
+    <div>
+        <a asp-controller="Orders" asp-action="Index">Back to List</a>
+    </div>
+</div>
+

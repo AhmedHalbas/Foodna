@@ -1,0 +1,183 @@
+﻿@model RestaurantProject.ViewModels.OrderItemCategoryItem;
+@using Microsoft.AspNetCore.Identity
+
+
+
+@{ ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+<div class="container">
+    <h1>Cart</h1>
+    @if (Model.Message != null)
+    {
+        if (Model.flag == 1)
+        {
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    @Model.Message
+</div> }
+else if (Model.flag == 0)
+{
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    @Model.Message
+</div>}
+}
+    <div class="container-fluid">
+        @{ List<Order> tempList = new List<Order>();}
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            tempList = Model.AllOrdersForAdmins;
+        }
+        else
+        {
+            tempList = Model.OrdersList;
+        }
+
+
+
+        @if (tempList.Count < 0)
+        {
+<div class="border rounded shadow text-center ">
+    <h1>Empty Cart</h1>
+    <p>Try Our Service and Order Now! </p>
+    <a class="btn btn-info" asp-action="Index" asp-controller="Restaurants"></a>
+</div> }
+else
+{
+@foreach (var item in tempList)
+{
+
+
+
+<div class="m-3 col-7">
+
+
+
+
+    @foreach (var orderedItem in item.OrderItems)
+    {
+
+
+
+        var photoPath = "~/images/" + (orderedItem.ItemOrdered.PictureUri);
+<div class="row">
+    <div class="col-6">
+
+
+
+        <img alt="pic" src="@photoPath" asp-append-version="true" class="img-fluid" style="height:16em;width:22em;" />
+    </div>
+    <div class="col-6">
+        @if (item.orderStatus == OrderStatus.Approved)
+        {
+<div class="alert alert-success alert-dismissible fade show ">
+    Order Approved
+</div> }
+else if (item.orderStatus == OrderStatus.Cancled)
+{
+<div class="alert alert-danger alert-dismissible fade show ">
+    Order Cancle.. Please Check your Email !!
+</div> }
+else if (item.orderStatus == OrderStatus.Waiting)
+{
+<div class="alert alert-warning alert-dismissible fade show ">
+    Waiting For Approval......
+</div> }
+else if (item.orderStatus == OrderStatus.WaitingPayed)
+{
+<div class="alert alert-warning alert-dismissible fade show ">
+    Payment is Done .. Waiting for Address Confirmation
+</div> }
+else
+{
+<div class="alert alert-info alert-dismissible fade show ">
+    Please Confirm Order ......
+</div>}
+        <h3>@orderedItem.ItemOrdered.Name</h3>
+        <p>@orderedItem.ItemOrdered.Description</p>
+        <p>@orderedItem.Units <span>pieces</span></p>
+        <div>
+            @orderedItem.ItemOrdered.Price <span>E&pound;</span> For one
+            <p>
+                Total : @{decimal p = @orderedItem.Price;
+                    int u = orderedItem.Units;
+                    decimal res = p * u; } @res
+                </p>
+                <div class="row">
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin") && item.orderStatus != OrderStatus.Waiting && item.orderStatus != OrderStatus.WaitingPayed)
+                    {
+<a class="btn btn-danger col-5 my-1" asp-action="Delete" asp-controller="OrderItems" asp-route-id="@orderedItem.OrderItemID">Delete</a>}
+
+
+
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+<a class="btn btn-danger col-5 my-2" asp-action="Delete" asp-controller="OrderItems" asp-route-id="@orderedItem.OrderItemID">Delete</a>
+
+
+
+                            <a class="btn btn-warning col-8" asp-action="Details" asp-controller="Buyers" asp-route-id="@item.BuyerID">Customer Details</a>
+
+
+
+                                                        <input type="button" onclick="postMe(@item.OrderID)" class="btn btn-warning col-8 mt-3" value="Approve Order" />}
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>}
+
+
+
+
+</div>}
+                @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+                {
+@if (tempList.Count > 0)
+{
+    if (Model.flag != 2)
+    {
+<div>
+    <p>Order: @Model.subTotal <span>E&pound;</span></p>
+    <p>Taxes: @Model.taxes <span>E&pound;</span></p>
+    <p>Delivery Fees : @Model.delivery <span>E&pound;</span></p>
+    <p>Total Price : @Model.total <span>E&pound;</span></p>
+    @*<a class="btn btn-info m-3 p-3" asp-action="Edit" asp-controller="Buyers" asp-route-id="@Model.BuyerID">Confirm Order </a>*@
+    <form method="get" asp-action="ConfirmOrder" asp-controller="Buyers" asp-route-id="@Model.BuyerID">
+        <input type="hidden" name="total" value="@Model.total" />
+        <input type="submit" class="btn btn-outline-success border border-success mb-5" value="Confirm order" />
+
+
+
+    </form>
+</div>}
+}}}
+    </div>
+</div>
+<script>
+   // alert('lll');
+    async function postMe(id) {
+       // alert('kk')
+        await $.ajax({
+            url: "@Url.Action("ApproveOrder")",
+            data: { id: id },
+            method: "POST",
+            success: function (rs) {
+                console.log(id);
+
+            },
+            error: function (x, y, err) {
+                console.log(err);
+            }
+        });
+
+
+        location.reload();
+
+    }
+</script>

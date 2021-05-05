@@ -1,0 +1,81 @@
+﻿@model RestaurantProject.ViewModels.ConfirmOrder;
+@{
+    ViewData["Title"] = "ConfirmOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using RestaurantProject.Models ;
+@using Microsoft.Extensions.Options;
+@inject IOptions<RestaurantProject.Data.StripeSettings> Stripe;
+<div class="container-fluid text-center border shadow w-75 my-5">
+    <h1 class="m-5">Confirm Order</h1>
+    <form method="post" asp-action="Confirm" asp-controller="Buyers">
+        <div>
+            <label asp-for="@Model.buyer.Username"></label>
+            <input class="w-25 mx-auto" type="text" readonly asp-for="@Model.buyer.Username" asp-value="@Model.buyer.Username" />
+            <input type="hidden" asp-for="@Model.buyer.UserID" />
+            <input type="hidden" asp-for="@Model.buyer.PictureUri" />
+            <input type="hidden" asp-for="@Model.buyer.BirthDate" />
+        </div>
+        <div class="my-5">
+            <label asp-for="@Model.paymentMethod"></label>
+            <select class="mx-2" asp-for="@Model.paymentMethod" id="selectList" onchange="show()">
+                <option value="@PaymentMethodEnum.Cash">cash</option>
+                <option id="credit" value="@PaymentMethodEnum.Credit">credit</option>
+            </select>
+            <span asp-validation-for="@Model.paymentMethod" class="text-danger"></span>
+        </div>
+
+        <input class="mb-5 btn btn-success" type="submit" value="Confirm" id="post1" />
+
+    </form>
+    <form asp-action="Charge" asp-controller="Buyers" method="post" id="payment-form">
+        <div class="form-row">
+
+
+            <input type="hidden" readonly asp-for="@Model.buyer.Username" asp-value="@Model.buyer.Username" />
+            <input type="hidden" asp-for="@Model.buyer.UserID" />
+            <input type="hidden" asp-for="@Model.buyer.PictureUri" />
+            <input type="hidden" asp-for="@Model.buyer.BirthDate" />
+            <input type="hidden" name="total" value="@Model.total" />
+            <div id="card-errors" role="alert"></div>
+        </div>
+
+        <script src="https://checkout.stripe.com/checkout.js"
+                class="stripe-button"
+                data-key="@Stripe.Value.PublishableKey"
+                data-name="Confirm Order"
+                data-description="Pay with Credit"
+                data-amount="@Model.total"
+                data-currency="egp">
+        </script>
+
+    </form>
+
+</div>
+
+<script>
+    window.onload = function () {
+        // alert('dddd')
+        document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+
+    }
+    function show() {
+        let val = document.getElementById("selectList").value;
+        console.log(val)
+        console.log(val)
+        if (document.getElementById("selectList").value == 'Credit') {
+            document.getElementById("post1").style.display = 'none';
+            document.getElementsByClassName("stripe-button-el")[0].style.display = 'block';
+            document.getElementsByClassName("stripe-button-el")[0].classList.add('m-auto');
+
+        }
+        else {
+            document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+            document.getElementById("post1").style.display = 'block';
+            document.getElementById("post1").classList.add('m-auto');
+            document.getElementById("post1").classList.add('mb-5');
+
+        }
+
+    }
+</script>

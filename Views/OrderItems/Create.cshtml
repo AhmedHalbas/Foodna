@@ -1,0 +1,43 @@
+﻿@model RestaurantProject.ViewModels.OrderItemCategoryItem
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <h4>Make an Order</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Picked Item</label>
+                    <input type="hidden" asp-for="@Model.orderItem.CategoryItemID" value="@Model.categoryItem.CategoryItemID" />
+                    <input readonly asp-for="@Model.categoryItem.Name" class="form-control" placeholder="@Model.categoryItem.Name"></input>
+                </div>
+                <div class="form-group">
+                    <label asp-for="orderItem.Price" class="control-label"></label>
+                    <input readonly asp-for="orderItem.Price" value="@Model.categoryItem.Price" class="form-control" />
+                    <span asp-validation-for="orderItem.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="orderItem.Units" class="control-label"></label>
+                    <input value="1" min="1" type="number" asp-for="orderItem.Units" class="form-control" />
+                    <span asp-validation-for="orderItem.Units" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Details" asp-controller="Restaurants" asp-route-id="@Model.ResID" class="text-warning">Back to List</a>
+    </div>
+</div>
+
+
+
+

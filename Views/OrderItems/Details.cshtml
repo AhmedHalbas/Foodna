@@ -1,0 +1,40 @@
+﻿@model RestaurantProject.Models.OrderItem
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1>Details</h1>
+
+    <div>
+        <h4>OrderItem</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ItemOrdered)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ItemOrdered.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Units)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Units)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.OrderItemID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</div>

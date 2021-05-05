@@ -1,0 +1,267 @@
+﻿@model RestaurantProject.ViewModels.RestaurantCategoryType
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Details";
+}
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+    }
+
+
+
+    #myBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+
+
+        #myBtn:hover {
+            background-color: #555;
+        }
+</style>
+<button onclick="topFunction()" id="myBtn" class="btn btn-warning" title="Go to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="26" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
+</button>
+<h1 class="text-warning text-center">@Model.restaurant.Name</h1>
+
+<div class="container-fluid">
+    <div class="text-center mx-auto col-3">
+        <input type="text" id="searchf" placeholder="Search for food" class="form-control " onkeyup="postMe(@Model.restaurant.RestaurantID)" />
+    </div>
+    <div id="cateo" class="text-center justify-content-center mt-3" style="display:@Model.Flag">
+        <nav>
+            <ul class="list-group list-group-horizontal">
+                @foreach (var item in Model.categoryTypes)
+                {
+                    <li class="list-unstyled list-group-item ml-2 btn btn-outline-warning"><a href="#@item.Type" class="text-decoration-none active text-dark">@item.Type</a></li>
+                }
+
+            </ul>
+        </nav>
+    </div>
+    <hr />
+
+    <div class="row ">
+        @if (ViewBag.SearchResult != null)
+        {
+            <div class=" offset-1 col-9 ">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="container-fluid mt-4">
+                            @foreach (var categoryItem in ViewBag.SearchResult)
+                            {
+                                //C:\Users\ahmed\Desktop\Project\RestaurantProject\wwwroot\images\CategoryItems\aaaaaaa.jpg
+                                var photoPath = "~/images/" + (categoryItem.PictureUri);
+                                <div class="row mt-3 mb-2">
+                                    <div class="col-6">
+                                        <img alt="itemPic" src="@photoPath" asp-append-version="true" style="height:16em;width:22em;" class="img-fluid" />
+                                    </div>
+                                    <div class="col-6 p-4">
+                                        <h3>@categoryItem.Name</h3>
+                                        <p>@categoryItem.Description</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam bibendum rhoncus lectus eget aliquam. Duis in quam at est accumsan eleifend et sit amet risus. Nullam fermentum</p>
+                                        <div>
+                                            @categoryItem.Price <span>E&pound;</span>
+                                            @if (Model.restaurant.RestaurantID == Model.cartRest.RestaurantID)
+                                            {
+                                                @if ( !User.IsInRole("Admin"))
+                                                {
+                                                    <a asp-controller="OrderItems" asp-action="Create" asp-route-id="@categoryItem.CategoryItemID" id="orderBtn" class="btn btn-info mx-4 "> Order Now</a>
+
+
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                @if ( !User.IsInRole("Admin"))
+                                                {
+                                                    <input type="button" onclick="info()" class="btn btn-outline-success" value="Order Now" />
+                                                }
+
+                                            }
+                                        </div>
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                        {
+                                            <div id="forAdmins" class="mt-3">
+                                                <a asp-controller="CategoryItems" asp-action="Edit" asp-route-id="@categoryItem.CategoryItemID" class="btn btn-info "> Edit item</a>
+                                                <a asp-controller="CategoryItems" asp-action="Delete" asp-route-id="@categoryItem.CategoryItemID" class="btn btn-danger "> Delete item</a>
+
+
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+                                <hr />
+
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+        else
+        {
+
+            @foreach (var item in Model.categoryTypes)
+            {
+
+                <div class=" offset-1 col-9 ">
+                    <div class="card mt-4">
+                        <div id="@item.Type" class="card-body">
+
+                            <h4 class="card-title text-center">@item.Type</h4>
+                            <hr />
+                            <div class="container-fluid mt-4">
+                                @foreach (var categoryItem in item.CategoryItems)
+                                {
+                                    //C:\Users\ahmed\Desktop\Project\RestaurantProject\wwwroot\images\CategoryItems\aaaaaaa.jpg
+                                    var photoPath = "~/images/" + (categoryItem.PictureUri);
+                                    <div class="row mt-3 mb-2">
+                                        <div class="col-6">
+                                            <img alt="itemPic" src="@photoPath" asp-append-version="true" style="height:16em;width:22em;" class="img-fluid" />
+                                        </div>
+                                        <div class="col-6 p-4">
+                                            <h3>@categoryItem.Name</h3>
+                                            <p>@categoryItem.Description</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam bibendum rhoncus lectus eget aliquam. Duis in quam at est accumsan eleifend et sit amet risus. Nullam fermentum</p>
+                                            <div>
+                                                @categoryItem.Price <span>E&pound;</span>
+                                                @if (Model.restaurant.RestaurantID == Model.cartRest.RestaurantID)
+                                                {
+                                                    @if ( !User.IsInRole("Admin"))
+                                                    {
+                                                        <a asp-controller="OrderItems" asp-action="Create" asp-route-id="@categoryItem.CategoryItemID" id="orderBtn" class="btn btn-info mx-4 "> Order Now</a>
+
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    @if ( !User.IsInRole("Admin"))
+                                                    {
+                                                        <input type="button" onclick="info()" class="btn btn-outline-success" value="Order Now" />
+                                                    }
+                                                }
+                                            </div>
+                                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                            {
+                                                <div id="forAdmins" class="mt-3">
+                                                    <a asp-controller="CategoryItems" asp-action="Edit" asp-route-id="@categoryItem.CategoryItemID" class="btn btn-info "> Edit item</a>
+                                                    <a asp-controller="CategoryItems" asp-action="Delete" asp-route-id="@categoryItem.CategoryItemID" class="btn btn-danger "> Delete item</a>
+
+
+                                                </div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr />
+
+
+                                }
+                            </div>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-success" asp-controller="Categoryitems" asp-action="Create" asp-route-id="@item.CatrgoryTypeID">Add New Item</a>
+                                <a class="btn btn-info" asp-controller="CategoryTypes" asp-action="Edit" asp-route-id="@item.CatrgoryTypeID">Edit Category</a>
+                                <a class="btn btn-danger" asp-controller="CategoryTypes" asp-action="Delete" asp-route-id="@item.CatrgoryTypeID">Delete Category</a>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        }
+
+    </div>
+</div>
+
+<div class="mt-5 p-3 m-2">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a class="btn btn-success" asp-controller="CategoryTypes" asp-action="Create" asp-route-id="@Model.restaurant.RestaurantID">Add Category</a>
+
+    }
+
+    <a asp-action="Index" class="text-warning">Back to List</a>
+</div>
+<script>
+    function info() {
+        alert("Can't Order Now... Please Clear your Cart First!!");
+    }
+
+    async function postMe(id) {
+         let n =  await document.getElementById("searchf").value;
+        console.log(n);
+        $.ajax({
+            url: "@Url.Action("Details")",
+            data: { id: id, Name: n },
+            method: "POST",
+            success: function (rs) {
+                console.log(id);
+                console.log(n);
+                document.body.innerHTML = rs;
+                document.getElementById("searchf").value += n;
+                document.getElementById("searchf").focus();
+                //document.getElementById("cateo").style.display = "none";
+            },
+            error: function (x, y, err) {
+                console.log(n);
+                console.log(err);
+            }
+        });
+
+    }
+
+    var mybutton = document.getElementById("myBtn");
+
+
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () { scrollFunction() };
+
+
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+</script>
+
+

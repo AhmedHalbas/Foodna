@@ -1,0 +1,267 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+
+    <div class="carousel-inner">
+        <div class="carousel-item ">
+            <img src="images/slider-01.jpg" class="d-block w-100 h-100" alt="pizza">
+            <div style=" position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: black; opacity: 0.5;"></div>
+
+            <div class="carousel-caption d-none d-md-block text-light" style="font-size:xxx-large">
+                <p class="m-b-20 text-light font-weight-bold">Welcome To <br> Foodنa</p>
+                <h1 class="m-b-40 text-light">
+                    Enjoy your favourite food <br>
+                    with the best quality experience
+                </h1>
+                <p><a class="btn btn-lg btn-circle btn-outline-new-white"  asp-controller="Restaurants" asp-action="Index">Order</a></p>
+            </div>
+        </div>
+        <div class="carousel-item active ">
+            <img src="images/slider-02.jpg" class="d-block w-100 h-100" alt="pizza">
+            <div style=" position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: black; opacity: 0.5;"></div>
+
+            <div class="carousel-caption d-none d-md-block text-light" style="font-size:xxx-large">
+                <p class="m-b-20 text-light"><strong>Welcome To <br> Foodنa</strong></p>
+                <h1 class="m-b-40  text-light">
+                    Enjoy your favourite food <br>
+                    with the best quality experience
+                </h1>
+                <p><a class="btn btn-lg btn-circle btn-outline-new-white"  asp-controller="Restaurants" asp-action="Index">Order</a></p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="images/slider-03.jpg" alt="The Best Pizza in Cairo - Top 10 Cairo" class="d-block w-100 h-100" />
+            <div style=" position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: black; opacity: 0.5;"></div>
+
+            <div class="carousel-caption d-none d-md-block text-light" style="font-size:xxx-large">
+                <p class="m-b-20 text-light"><strong>Welcome To <br> Foodنa</strong></p>
+                <h1 class="m-b-40 text-light">
+                    Enjoy your favourite food <br>
+                    with the best quality experience
+                </h1>
+                <p><a class="btn btn-lg btn-circle btn-outline-new-white"  asp-controller="Restaurants" asp-action="Index">Order</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="about-section-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <img src="images/about-img.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                <div class="inner-column">
+                    <h1>Welcome To <span>Foodنa</span></h1>
+                    <h4>Little Story</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque auctor suscipit feugiat. Ut at pellentesque ante, sed convallis arcu. Nullam facilisis, eros in eleifend luctus, odio ante sodales augue, eget lacinia lectus erat et sem. </p>
+                    <p>Sed semper orci sit amet porta placerat. Etiam quis finibus eros. Sed aliquam metus lorem, a pellentesque tellus pretium a. Nulla placerat elit in justo vestibulum, et maximus sem pulvinar.</p>
+                    <a class="btn btn-lg btn-circle btn-outline-new-white"  asp-controller="Restaurants" asp-action="Index">Go to Restaurants</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Start Menu -->
+<div class="menu-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-title text-center">
+                    <h2>Special Offers</h2>
+                    <p>Register now and order from our special offers</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row special-list">
+            <div class="col-lg-4 col-md-6 special-grid drinks">
+                <div class="gallery-single fix">
+                    <img src="images/img-01.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Drinks 1</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $7.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid drinks">
+                <div class="gallery-single fix">
+                    <img src="images/img-02.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Drinks 2</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $9.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid drinks">
+                <div class="gallery-single fix">
+                    <img src="images/img-03.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Drinks 3</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $10.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid lunch">
+                <div class="gallery-single fix">
+                    <img src="images/img-04.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Lunch 1</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $15.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid lunch">
+                <div class="gallery-single fix">
+                    <img src="images/img-05.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Lunch 2</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $18.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid lunch">
+                <div class="gallery-single fix">
+                    <img src="images/img-06.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Lunch 3</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $20.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid dinner">
+                <div class="gallery-single fix">
+                    <img src="images/img-07.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Dinner 1</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $25.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid dinner">
+                <div class="gallery-single fix">
+                    <img src="images/img-08.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Dinner 2</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $22.79</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 special-grid dinner">
+                <div class="gallery-single fix">
+                    <img src="images/img-09.jpg" class="img-fluid" alt="Image">
+                    <div class="why-text">
+                        <h4>Special Dinner 3</h4>
+                        <p>Sed id magna vitae eros sagittis euismod.</p>
+                        <h5> $24.79</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Menu -->
+
+<!-- Start Contact info -->
+<div class="contact-imfo-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <i class="fa fa-volume-control-phone"></i>
+                <div class="overflow-hidden">
+                    <h4>Phone</h4>
+                    <p class="lead">
+                        +01 123-456-4590
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-envelope"></i>
+                <div class="overflow-hidden">
+                    <h4>Email</h4>
+                    <p class="lead">
+                        yourmail@gmail.com
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-map-marker"></i>
+                <div class="overflow-hidden">
+                    <h4>Location</h4>
+                    <p class="lead">
+                        800, Lorem Street, US
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Contact info -->
+<footer class="footer-area bg-f">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <h3>About Us</h3>
+                <p>Integer cursus scelerisque ipsum id efficitur. Donec a dui fringilla, gravida lorem ac, semper magna. Aenean rhoncus ac lectus a interdum. Vivamus semper posuere dui, at ornare turpis ultrices sit amet. Nulla cursus lorem ut nisi porta, ac eleifend arcu ultrices.</p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h3>Delivery hours</h3>
+                <p><span class="text-color">Monday: </span>Closed</p>
+                <p><span class="text-color">Tue-Wed :</span> 9:Am - 10PM</p>
+                <p><span class="text-color">Thu-Fri :</span> 9:Am - 10PM</p>
+                <p><span class="text-color">Sat-Sun :</span> 5:PM - 10PM</p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h3>Contact information</h3>
+                <p class="lead">Ipsum Street, Lorem Tower, MO, Egypt, 508000</p>
+                <p class="lead"><a href="#">+01 2000 800 9999</a></p>
+                <p><a href="#"> asp@admin.com</a></p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h3>Subscribe</h3>
+                <div class="subscribe_form">
+                    <form class="subscribe_form">
+                        <input name="EMAIL" id="subs-email" class="form_input" placeholder="Email Address..." type="email">
+                        <button type="submit" class="submit">SUBSCRIBE</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+                <ul class="list-inline f-social">
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
